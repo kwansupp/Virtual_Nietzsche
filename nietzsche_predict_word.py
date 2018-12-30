@@ -46,13 +46,42 @@ for i in grams_freq:
 
 #TODO function that returns all the trigrams starting with given two words
 def wordGenerator(df, wordlist):
+    lambda1 = 0.05
+    lambda2 = 0.40
+    lambda3 = 0.55
     flag2words = (len(wordlist)==2)
-    #print(flag2words)
-    #print(wordlist[0])
+    print(flag2words)
+    print(wordlist[0])
     #print(df[0])
 
-    freq_uni = df[0][df[0]['grams'].apply(lambda x: True if wordlist[0]==x else False)['frequency']
+    highscore = ('NaN', 0)
 
+    for index, row in df[0].iterrows():
+        freq_uni = row['frequency']
+        checkedBi = False
+        checkedTri = False
+        for index1, row1 in df[1][df[1]['grams'].apply(lambda x: True if wordlist[0]==x[0] and row['grams']==x[1] else False)].iterrows():
+            freq_bi = row1['frequency']
+            checkedBi = True
+            for index2, row2 in df[2][df[2]['grams'].apply(lambda x: True if wordlist[0]==x[1] and wordlist[1]==x[0] and row['grams']==x[2] else False)].iterrows():
+                freq_tri = row2['frequency']
+                checkedTri = True
+        if (not checkedBi):
+            freq_bi = 0
+            freq_tri = 0
+        elif(not checkedTri):
+            freq_tri = 0
+        probability = lambda1*freq_uni+lambda2*freq_bi+lambda3*freq_tri
+        if (probability > highscore[1]):
+            highscore = (row['grams'],probability)
+            print(highscore)
+        #print(highscore)
+    return highscore
+
+
+
+    #df[0][df[0]['grams'].apply(lambda x: True if wordlist[0]==x else False)]
+    #print(freq_uni)
 
     #for index, row in df[0].iterrows():
 #        for index, row in df[1][df[1].apply(lambda x: True if row['grams'] in x[0] else False)].iterrows():
@@ -62,6 +91,6 @@ def wordGenerator(df, wordlist):
     #    print(row['c1'], row['c2'])
     #print(df[df['trigrams'].apply(lambda x: True if "This" in x[0] and "is" in x[1] else False)]['trigrams'].iloc[0][2])
 
-#wordGenerator(grams_freq, ["for", "spake"])
+print(wordGenerator(grams_freq, ["spake","Thus"]))
 
 #print(trigram_counts[trigram_counts["col"].apply(lambda x: True if "This" in x[0] and "is" in x[1] else False)])
