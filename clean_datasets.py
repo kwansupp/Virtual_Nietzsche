@@ -43,27 +43,3 @@ for i, st in enumerate(data_sentences[0]):
 	output.write(full)
 
 output.close()
-
-
-
-# removal_key = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-# # regex uppercase pattern
-# pattern = "([A-Z]+){2}"
-# # read files
-# for file in os.listdir('datasets'):
-# 	f = open(os.path.join('datasets',file), "r")
-
-
-# 	for line in f:
-# 		# remove all words with two or more consecutive uppercase letters
-# 		match_case = re.search(pattern, line)
-# 		if match_case:
-# 			line.replace(match_case, "")
-
-	
-
-	# 	# remove numbers and period following
-	# 	if any(n in line for n in removal_key):
-	# 		print(line)
-
-	# rewrite file
