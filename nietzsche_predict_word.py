@@ -14,24 +14,28 @@ for file in os.listdir('datasets'):
 trigrams = [(test_sentence[i], test_sentence[i + 1], test_sentence[i + 2])
             for i in range(len(test_sentence) - 2)]
 
+bigrams = [(test_sentence[i], test_sentence[i + 1])
+            for i in range(len(test_sentence) - 1)]
+
+unigrams = [(test_sentence[i])
+            for i in range(len(test_sentence))]
+
 #print(trigrams[:3])
 
 #print(len(trigrams))
 
 #Count how often trigram occurs
 
-trigrams_df = pd.DataFrame({'trigram':trigrams})
-#print(df)
-#print(df.col.unique())
-#print(df.col.value_counts())
+grams_df = [pd.DataFrame({'gram':unigrams}), pd.DataFrame({'gram':bigrams}), pd.DataFrame({'gram':trigrams})]
 
-val_col = trigrams_df.trigram.value_counts().keys().tolist()
-freq_col = trigrams_df.trigram.value_counts().tolist()
+grams_freq = [pd.DataFrame(columns=['grams','frequency']),pd.DataFrame(columns=['grams','frequency']),pd.DataFrame(columns=['grams','frequency'])]
 
-trigram_freq = pd.DataFrame(columns=['trigrams','frequency'])
-trigram_freq['trigrams'] = val_col
-trigram_freq['frequency'] = freq_col
-#print(trigram_freq)
+idx = 0
+for i in grams_freq:
+    i['grams'] = grams_df[idx].gram.value_counts().keys().tolist()
+    i['frequency'] = grams_df[idx].gram.value_counts().tolist()
+    idx += 1
+    print(i)
 
 #TODO function that returns all the trigrams starting with given two words
 def returnMostProbableWord(df, word1, word2):
