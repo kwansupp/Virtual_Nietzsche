@@ -1,4 +1,5 @@
 # Author: Robert Guthrie
+# From: https://pytorch.org/tutorials/beginner/nlp/word_embeddings_tutorial.html
 
 import torch
 import torch.nn as nn
