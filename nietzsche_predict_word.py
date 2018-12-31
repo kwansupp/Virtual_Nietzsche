@@ -158,7 +158,7 @@ def sentenceGenerator(df, dict,wdlist):
     sentence = wdlist
     i = 0
     #while not sentence[-1]=='[END]':
-    for i in range(30):
+    for i in range(50):
         w = wordGenerator(df,dict,list(reversed(sentence[-2:])))
         #print(w)
         sentence.append(w)
@@ -174,7 +174,7 @@ def softmax(x):
 #sentence = ['thusrestrest','spake','test']
 #print(list(reversed(sentence[-2:])))
 
-#sentenceGenerator(grams_freq,dictionaries,['thus','spake'])
+sentenceGenerator(grams_freq,dictionaries,['thus','spake'])
 sentenceGenerator(grams_freq,dictionaries,['let','us','publish','some','books'])
 #sentenceGenerator(grams_freq,dictionaries,['why','is'])
 #sentenceGenerator(grams_freq,dictionaries,['can','you'])
